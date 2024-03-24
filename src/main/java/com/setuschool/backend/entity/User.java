@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,8 @@ public class User {
     private String bio;
     private String category;
     private String profileImage;
+    private Date createdAt;
+    private Date updatedAt;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Course> courseList = new ArrayList<>();

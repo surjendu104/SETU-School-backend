@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -17,5 +18,7 @@ public class CourseDto {
     private int id;
     private String name;
     private String description;
+    private Date createdAt;
+    private Date UpdatedAt;
 //    private UserDto user;
 }

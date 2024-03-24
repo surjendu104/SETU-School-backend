@@ -6,6 +6,7 @@ import com.setuschool.backend.payload.UserDto;
 import com.setuschool.backend.service.ImageUpload;
 import com.setuschool.backend.service.UserService;
 import com.setuschool.backend.service.impl.ImageUploadImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +29,7 @@ public class UserController {
     private String path;
 
     @PostMapping("/")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
         UserDto createdUserDto = this.userService.createUser(userDto);
         return new ResponseEntity<>(createdUserDto, HttpStatus.CREATED);
     }

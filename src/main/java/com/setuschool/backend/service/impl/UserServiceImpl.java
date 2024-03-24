@@ -9,6 +9,7 @@ import com.setuschool.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         User newUser = userDtoToUser(userDto);
+        newUser.setCreatedAt(new Date());
+        newUser.setUpdatedAt(new Date());
         User savedUser = this.userRepo.save(newUser);
         return this.userToUserDto(savedUser);
     }
@@ -37,11 +40,12 @@ public class UserServiceImpl implements UserService {
         // Retrieve the existing user from the database
         User user = this.userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setBio(userDto.getBio());
-        user.setLinkedIn(userDto.getLinkedIn());
-        user.setProfileImage(userDto.getProfileImage());
+        if(userDto.getName()!= null)user.setName(userDto.getName());
+        if(userDto.getEmail() != null)user.setEmail(userDto.getEmail());
+        if(userDto.getBio()!= null)user.setBio(userDto.getBio());
+        if(userDto.getLinkedIn()!= null)user.setLinkedIn(userDto.getLinkedIn());
+        if(userDto.getProfileImage()!= null)user.setProfileImage(userDto.getProfileImage());
+        user.setUpdatedAt(new Date());
         User savedUser = this.userRepo.save(user);
 
         // Convert the updated user to UserDto and return

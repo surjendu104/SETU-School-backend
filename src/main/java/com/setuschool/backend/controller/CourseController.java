@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class CourseController {
         CourseDto courseDto1 = this.courseService.addUserToCourse(courseDto, courseId, userId);
         return ResponseEntity.ok(courseDto1);
     }
-    @PostMapping("/{courseId}")
+    @PutMapping("/{courseId}")
     public ResponseEntity<CourseDto> updateCourse(@RequestBody CourseDto courseDto, @PathVariable Integer courseId) {
         CourseDto courseDto1 = this.courseService.updateCourse(courseDto, courseId);
         return ResponseEntity.ok(courseDto1);

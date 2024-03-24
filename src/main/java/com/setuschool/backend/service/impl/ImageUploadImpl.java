@@ -30,7 +30,7 @@ public class ImageUploadImpl implements ImageUpload {
 
         // File copy
         Files.copy(file.getInputStream(), Paths.get(filePath));
-        return fileName1;
+        return path +fileName1;
 
     }
 

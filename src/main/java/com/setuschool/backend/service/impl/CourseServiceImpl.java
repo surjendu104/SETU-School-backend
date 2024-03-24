@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +26,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto createCourse(CourseDto courseDto) {
         Course newCourse = this.courseDtoToCourse(courseDto);
+        newCourse.setCreatedAt(new Date());
+        newCourse.setUpdatedAt(new Date());
         Course savedCourse = this.courseRepo.save(newCourse);
         return this.courseToCourseDto(savedCourse);
     }
@@ -44,6 +47,7 @@ public class CourseServiceImpl implements CourseService {
         course.setName(courseDto.getName());
         course.setDescription(courseDto.getDescription());
         course.setUser(user);
+        course.setUpdatedAt(new Date());
         this.courseRepo.save(course);
         return this.courseToCourseDto(course);
     }
@@ -53,6 +57,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = this.courseRepo.findById(courseId).orElseThrow(()->new ResourceNotFoundException("Course", "Id", courseId));
         course.setName(courseDto.getName());
         course.setDescription(courseDto.getDescription());
+        course.setUpdatedAt(new Date());
         this.courseRepo.save(course);
         return this.courseToCourseDto(course);
     }
